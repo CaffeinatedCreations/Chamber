@@ -278,7 +278,7 @@ MonoBehaviour:
   rb: {fileID: 2502777359685168810}
   inputX: 0
   moveSpeed: 15
-  jumpForce: 8
+  jumpForce: 12
   isGrounded: 0
   groundCheck:
   - {fileID: 2502777359561917062}
