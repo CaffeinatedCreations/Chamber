@@ -102,12 +102,6 @@ public class PlayerSpawnManager : MonoBehaviour
     }
 
 
-    public void RespawnBoth()
-    {
-        players[0].GetComponent<Transform>().position = spawnLocationsPlayer1[wheretoSpawn1].position;
-        players[1].GetComponent<Transform>().position = spawnLocationsPlayer2[wheretoSpawn2].position;
-    }
-
     public void DeactivateWallsRight(GameObject[] walls)
     {
         for (int i = 0; i <= walls.Length - 1; i++)
@@ -130,11 +124,9 @@ public class PlayerSpawnManager : MonoBehaviour
         }
     }
 
-    public void ActivateWalls(GameObject[] walls)
+    public void setControllable(bool controllable)
     {
-        for (int i = 0; i <= walls.Length - 1; i++)
-        {
-            walls[i].SetActive(true);
-        }
+        players[0].GetComponent<PlayerController>().isControllable = controllable;
+        players[1].GetComponent<PlayerController>().isControllable = controllable;
     }
 }

@@ -18,8 +18,7 @@ public class PlayerController : MonoBehaviour
     public List<Transform> groundCheck;   //This must be touching ground for the player to jump
     public LayerMask whatIsGround;  //States what is considered ground
 
-    public bool isDead;
-
+    public bool isControllable;
 
     public int playerID;
     public Vector2 spawnLocation;
@@ -30,12 +29,14 @@ public class PlayerController : MonoBehaviour
         transform.position = spawnLocation;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        isControllable = true;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(inputX * moveSpeed, rb.velocity.y);
+        if(isControllable)
+            rb.velocity = new Vector2(inputX * moveSpeed, rb.velocity.y);
 
         isGrounded = Physics2D.OverlapCircle(groundCheck[0].position, 0.7f, whatIsGround); // Determines if the Player is on the Ground
 
@@ -57,6 +58,8 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         Debug.Log("Oops you died");
+        isControllable = false;
+        rb.velocity = Vector2.zero;
         //To Do - Add Get a Skill on death
         PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
 
@@ -72,7 +75,7 @@ public class PlayerController : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         
-        if (isGrounded && context.performed)
+        if (isGrounded && context.performed && isControllable)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
