@@ -180,6 +180,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e6798ca3-9301-4a40-91c1-667525f049b3
     m_ActionName: Player/Jump
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5761100190825863086}
+        m_TargetAssemblyTypeName: ArmMovement, Assembly-CSharp
+        m_MethodName: MoveArm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 57fb2fee-56b0-45c1-9bbd-c7d31284e682
+    m_ActionName: Player/Arm Movement[/DualSenseGamepadHID/rightStick,/XInputControllerWindows/rightStick]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -279,7 +295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  joystickValue: {x: 0, y: 0}
 --- !u!1 &3952573708931024136
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,14 +320,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3952573708931024136}
-  m_LocalRotation: {x: 0.0022158115, y: -0.008493024, z: -0.24989758, w: 0.9682326}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.053, y: -0.077, z: -0.278}
   m_LocalScale: {x: 0.14135, y: 0.1456, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2502777359685168788}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0.003, y: -1.006, z: -28.944}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4003638461796261252
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -378,4 +393,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  joystickValue: {x: 0, y: 0}
