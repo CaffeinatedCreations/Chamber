@@ -24,7 +24,7 @@ public class ArmMovement : MonoBehaviour
     public Transform bulletSpawnPoint;
     public Transform bulletSpawnPoint2;
     public Transform gunTransform;
-    private AudioSource audio;
+    private AudioSource shootingAudio;
 
     private int bulletstate = 1;
     private int weaponstate = 1;
@@ -32,8 +32,9 @@ public class ArmMovement : MonoBehaviour
 
 
     public GameObject player;
-    
 
+    public float bulletForce;
+    public int armID;
     private int offset;
 
     public void Start()
@@ -41,7 +42,7 @@ public class ArmMovement : MonoBehaviour
         offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
-        audio = GetComponent<AudioSource>();
+        shootingAudio = GetComponent<AudioSource>();
         armID = GetComponentInParent<PlayerController>().playerID;
         
 
@@ -107,7 +108,7 @@ public class ArmMovement : MonoBehaviour
                 changeweapon(2);
                 //sr.sprite = shoot;
                 Debug.Log("Shoot");
-                audio.PlayOneShot(audio.clip);
+                shootingAudio.PlayOneShot(shootingAudio.clip);
 
                 // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
                 Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
@@ -138,7 +139,7 @@ public class ArmMovement : MonoBehaviour
                 
 
                 canSpawnBullet = false;
-                StartCoroutine(StartBulletSpawnCooldown());
+                StartCoroutine(StartBulletSpawnCooldown(bulletSpawnCooldown));
 
             }
         }catch(Exception e)   
