@@ -45,6 +45,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Die()
+    {
+        Debug.Log("Oops you died");
+    }
+
 
     public void Move(InputAction.CallbackContext context)
     {

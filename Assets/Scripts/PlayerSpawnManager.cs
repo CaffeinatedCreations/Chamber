@@ -5,6 +5,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerSpawnManager : MonoBehaviour
 {
+
+    public List<Sprite> player1Sprites;
+    public List<Sprite> player2Sprites;
+
+    public List<Transform> spawnLocations;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +25,17 @@ public class PlayerSpawnManager : MonoBehaviour
     }
 
 
-    void OnPlayerJoined(PlayerInput playerInput)
+    public void onPlayerJoined(PlayerInput playerInput)
     {
         Debug.Log("PlayerInput ID: " + playerInput.playerIndex);
+        if (playerInput.playerIndex == 0)
+            playerInput.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+
+
+        if (playerInput.playerIndex == 1)
+            playerInput.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+
+        playerInput.gameObject.GetComponent<PlayerDetails>().playerID = playerInput.playerIndex + 1;
+        playerInput.gameObject.GetComponent<PlayerDetails>().spawnLocation = spawnLocations[playerInput.playerIndex].position;
     }
 }
