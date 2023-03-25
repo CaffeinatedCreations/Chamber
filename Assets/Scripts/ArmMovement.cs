@@ -54,7 +54,7 @@ public class ArmMovement : MonoBehaviour
             sr.flipX = false;
         }
     }
-    public void MoveArm(InputAction.CallbackContext context) //idk why its 90 degrees off
+    public void MoveArm(InputAction.CallbackContext context) //idk why its 90 degrees off //Try looking at this https://docs.unity3d.com/ScriptReference/Transform.LookAt.html
     {
         float moveHorizontal = context.ReadValue<Vector2>().x;
         float moveVertical = context.ReadValue<Vector2>().y;

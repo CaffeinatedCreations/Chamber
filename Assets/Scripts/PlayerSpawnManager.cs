@@ -13,6 +13,8 @@ public class PlayerSpawnManager : MonoBehaviour
     public List<Transform> spawnLocationsPlayer1;
     public List<Transform> spawnLocationsPlayer2;
 
+    private int wheretoSpawn1, wheretoSpawn2 = 1;
+
 
 
     private void Awake()
@@ -38,22 +40,38 @@ public class PlayerSpawnManager : MonoBehaviour
         Debug.Log("PlayerInput ID: " + playerInput.playerIndex);
         if (playerInput.playerIndex == 0)
         {
-            playerInput.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-            playerInput.gameObject.GetComponent<PlayerDetails>().spawnLocation = spawnLocationsPlayer1[0].position;
+            playerInput.GetComponent<SpriteRenderer>().color = Color.green;
+            playerInput.GetComponent<PlayerController>().spawnLocation = spawnLocationsPlayer1[1].position;
         }
 
 
         if (playerInput.playerIndex == 1)
         {
-            playerInput.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
-            playerInput.gameObject.GetComponent<PlayerDetails>().spawnLocation = spawnLocationsPlayer2[0].position;
+            playerInput.GetComponent<SpriteRenderer>().color = Color.blue;
+            playerInput.GetComponent<PlayerController>().spawnLocation = spawnLocationsPlayer2[1].position;
         }
 
-        playerInput.gameObject.GetComponent<PlayerDetails>().playerID = playerInput.playerIndex + 1;
+        playerInput.gameObject.GetComponent<PlayerController>().playerID = playerInput.playerIndex;
     }
 
-    public void RespawnPlayer()
+    public void RespawnPlayer(PlayerInput playerID)
     {
+        if (playerID.playerIndex == 0)
+        {
+            wheretoSpawn1--;
+            wheretoSpawn2--;
+            Debug.Log(wheretoSpawn1 + " "+ playerID.playerIndex);
+            playerID.GetComponent<PlayerController>().spawnLocation = spawnLocationsPlayer1[wheretoSpawn1].position;
+            playerID.GetComponent<Transform>().position = spawnLocationsPlayer1[wheretoSpawn1].position;
+        }
 
+        if (playerID.playerIndex == 1)
+        {
+            wheretoSpawn1++;
+            wheretoSpawn2++;
+            Debug.Log(wheretoSpawn2 + " " + playerID.playerIndex);
+            playerID.GetComponent<PlayerController>().spawnLocation = spawnLocationsPlayer2[wheretoSpawn2].position;
+            playerID.GetComponent<Transform>().position = spawnLocationsPlayer2[wheretoSpawn2].position;
+        }
     }
 }

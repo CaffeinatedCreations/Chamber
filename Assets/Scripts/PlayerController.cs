@@ -7,7 +7,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    private CharacterController controller;
     public Rigidbody2D rb;         //The Rigidbody 2D attached to the Player //did make public for personal use
     private SpriteRenderer sr;      //The Sprite Renderer attached to the Player
 
@@ -19,16 +18,13 @@ public class PlayerController : MonoBehaviour
     public List<Transform> groundCheck;   //This must be touching ground for the player to jump
     public LayerMask whatIsGround;  //States what is considered ground
 
-    
-
-    
-
-    public PlayerDetails playerDetails;
+    public int playerID;
+    public Vector2 spawnLocation;
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        transform.position = spawnLocation;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
@@ -60,7 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Oops you died");
         //To Do - Add Get a Skill on death
-        //playerDetails.spawnLocation = PlayerSpawnManager.instance.
+        PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
     }
 
 
