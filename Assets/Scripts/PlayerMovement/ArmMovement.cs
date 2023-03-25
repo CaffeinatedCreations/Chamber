@@ -24,7 +24,7 @@ public class ArmMovement : MonoBehaviour
     public Transform bulletSpawnPoint;
     public Transform bulletSpawnPoint2;
     public Transform gunTransform;
-
+    private AudioSource audio;
    
 
 
@@ -38,6 +38,7 @@ public class ArmMovement : MonoBehaviour
         offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
+        audio = GetComponent<AudioSource>();
         
 
     }
@@ -92,6 +93,7 @@ public class ArmMovement : MonoBehaviour
 
     public void shootanimation(InputAction.CallbackContext context) //changes when trigger is pressed
     {
+
         try
         {
             sr.sprite = shoot;
@@ -100,6 +102,7 @@ public class ArmMovement : MonoBehaviour
             {
                 sr.sprite = shoot;
                 Debug.Log("Shoot");
+                audio.PlayOneShot(audio.clip);
 
                 // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
                 Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
