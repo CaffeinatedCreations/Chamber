@@ -8,8 +8,8 @@ public class soundManagerScript : MonoBehaviour
     static AudioSource audioSrc;
     void Start()
     {
-        GunShotSound = Music.Load<AudioClip> ("51749__erkanozan__gunshot ");
-        audioSrc = GetComponet<AudioSource> ();
+        //GunShotSound = Music.Load<AudioClip> ("51749__erkanozan__gunshot ");
+        //audioSrc = GetComponet<AudioSource> ();
     }
 
     // Update is called once per frame

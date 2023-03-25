@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;         //States if the Player is on the ground or not
     public Transform groundCheck;   //This must be touching ground for the player to jump
     public LayerMask whatIsGround;  //States what is considered ground
+
+    
 
     public PlayerDetails playerDetails;
 
@@ -69,4 +71,6 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
+
+
 }

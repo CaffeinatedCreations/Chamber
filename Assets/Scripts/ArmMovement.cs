@@ -12,9 +12,12 @@ public class ArmMovement : MonoBehaviour
     public PlayerController playerController; //got lazy grabbed varaible from other script
     private SpriteRenderer sr;
     public SpriteRenderer tar;
-    
-    
 
+    public Sprite shoot;
+    public Sprite noShoot;
+
+    float moveHorizontal;
+    float moveVertical;
 
     public void Start()
     {
@@ -41,6 +44,7 @@ public class ArmMovement : MonoBehaviour
         {
             
             sr.flipX = true;
+            
         }
         else if (playerController.rb.velocity.x > 0)
         {
@@ -48,16 +52,30 @@ public class ArmMovement : MonoBehaviour
             sr.flipX = false;
         }
     }
-    public void MoveArm(InputAction.CallbackContext context)
+    public void MoveArm(InputAction.CallbackContext context) //idk why its 90 degrees off
     {
-        //joystickValue = Gamepad.current.rightStick.ReadValue();
-
         float moveHorizontal = context.ReadValue<Vector2>().x;
         float moveVertical = context.ReadValue<Vector2>().y;
+        
+        Debug.Log("Horizontal: " + moveHorizontal);
+        Debug.Log("Vertical: " + moveVertical);
 
-        Vector2 movement = new Vector3(moveHorizontal, moveVertical);
+        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         transform.rotation = Quaternion.LookRotation(Vector3.forward, movement);
 
+    }
+    
+
+    public void shootanimation(InputAction.CallbackContext context) //changes when trigger is pressed
+    {
+        sr.sprite = shoot;
+        Debug.Log("Shoot");
+        StartCoroutine(ResetSpriteAfterDelay(.5f));
+    }
+    private IEnumerator ResetSpriteAfterDelay(float delay) //returns to default 
+    {
+        yield return new WaitForSeconds(delay);
+        sr.sprite = noShoot;
     }
 }
