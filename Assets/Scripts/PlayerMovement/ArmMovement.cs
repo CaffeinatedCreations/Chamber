@@ -16,6 +16,8 @@ public class ArmMovement : MonoBehaviour
     public SpriteRenderer tar;
     public GameObject bulletref;
 
+    public int armID;
+
     public Sprite shoot;
     public Sprite noShoot;
     public bool canSpawnBullet = true;
@@ -24,6 +26,8 @@ public class ArmMovement : MonoBehaviour
     public Transform bulletSpawnPoint;
     public Transform bulletSpawnPoint2;
     public Transform gunTransform;
+
+    public float bulletForce;
 
    
 
@@ -35,9 +39,11 @@ public class ArmMovement : MonoBehaviour
 
     public void Start()
     {
+        bulletForce = 12f;
         offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
+        armID = GetComponentInParent<PlayerController>().playerID;
         
 
     }
@@ -121,11 +127,13 @@ public class ArmMovement : MonoBehaviour
                 if (sr.flipX)
                     shootDirection = -transform.right;
 
-                if (!sr.flipX)
-                    shootDirection = transform.right;
+                //if (!sr.flipX)
+                //shootDirection = transform.right;
 
+                bullet.GetComponent<bulletcode>().userID = armID;
                 // Add force to the bullet in the shoot direction
-                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
+                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
+                
 
                 canSpawnBullet = false;
                 StartCoroutine(StartBulletSpawnCooldown());
