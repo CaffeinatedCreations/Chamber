@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public List<Transform> groundCheck;   //This must be touching ground for the player to jump
     public LayerMask whatIsGround;  //States what is considered ground
 
+    public bool isDead;
+
+
     public int playerID;
     public Vector2 spawnLocation;
 
@@ -48,15 +51,26 @@ public class PlayerController : MonoBehaviour
         {
             sr.flipX = false;
         }
-
-
     }
+
 
     public void Die()
     {
+        PlayerSpawnManager.instance.numDeadCharacters++;
         Debug.Log("Oops you died");
         //To Do - Add Get a Skill on death
-        PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
+
+        if (PlayerSpawnManager.instance.numDeadCharacters > 1)
+        {
+            PlayerSpawnManager.instance.RespawnBoth();
+            PlayerSpawnManager.instance.numDeadCharacters = 0;
+        }
+        else
+        {
+            PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
+            PlayerSpawnManager.instance.numDeadCharacters--;
+        }
+
     }
 
 

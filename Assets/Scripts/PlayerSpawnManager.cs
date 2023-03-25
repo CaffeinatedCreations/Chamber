@@ -13,8 +13,13 @@ public class PlayerSpawnManager : MonoBehaviour
     public List<Transform> spawnLocationsPlayer1;
     public List<Transform> spawnLocationsPlayer2;
 
+    [SerializeField]
+    private PlayerInput[] players;
+
     private GameObject[] walls;
     public Camera mainCamera;
+
+    public int numDeadCharacters = 0;
 
     private int wheretoSpawn1, wheretoSpawn2;
 
@@ -22,7 +27,15 @@ public class PlayerSpawnManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        players = new PlayerInput[2];
         walls = GameObject.FindGameObjectsWithTag("Wall");
         wheretoSpawn1 = 1;
         wheretoSpawn2 = 1;
@@ -37,6 +50,8 @@ public class PlayerSpawnManager : MonoBehaviour
         {
             playerInput.GetComponent<SpriteRenderer>().color = Color.green;
             playerInput.GetComponent<PlayerController>().spawnLocation = spawnLocationsPlayer1[1].position;
+            playerInput.GetComponent<PlayerController>().playerID = playerInput.playerIndex;
+            players[0] = playerInput;
         }
 
 
@@ -44,6 +59,8 @@ public class PlayerSpawnManager : MonoBehaviour
         {
             playerInput.GetComponent<SpriteRenderer>().color = Color.blue;
             playerInput.GetComponent<PlayerController>().spawnLocation = spawnLocationsPlayer2[1].position;
+            playerInput.GetComponent<PlayerController>().playerID = playerInput.playerIndex;
+            players[1] = playerInput;
         }
 
         playerInput.GetComponent<PlayerController>().playerID = playerInput.playerIndex;
@@ -58,7 +75,6 @@ public class PlayerSpawnManager : MonoBehaviour
             Debug.Log(wheretoSpawn1 + " "+ playerID.playerIndex);
             playerID.GetComponent<Transform>().position = spawnLocationsPlayer1[wheretoSpawn1].position;
             DeactivateWallsLeft(walls);
-            CameraController.instance.moveLeft();
         }
 
         if (playerID.playerIndex == 1)
@@ -68,10 +84,29 @@ public class PlayerSpawnManager : MonoBehaviour
             Debug.Log(wheretoSpawn2 + " " + playerID.playerIndex);
             playerID.GetComponent<Transform>().position = spawnLocationsPlayer2[wheretoSpawn2].position;
             DeactivateWallsRight(walls);
-            CameraController.instance.moveRight();
         }
     }
 
+
+    public void ForceRespawn(PlayerInput playerID)
+    {
+        if (playerID.playerIndex == 0)
+        {
+            playerID.GetComponent<Transform>().position = spawnLocationsPlayer1[wheretoSpawn1].position;
+        }
+
+        if (playerID.playerIndex == 1)
+        {
+            playerID.GetComponent<Transform>().position = spawnLocationsPlayer2[wheretoSpawn2].position;
+        }
+    }
+
+
+    public void RespawnBoth()
+    {
+        players[0].GetComponent<Transform>().position = spawnLocationsPlayer1[wheretoSpawn1].position;
+        players[1].GetComponent<Transform>().position = spawnLocationsPlayer2[wheretoSpawn2].position;
+    }
 
     public void DeactivateWallsRight(GameObject[] walls)
     {
@@ -79,7 +114,7 @@ public class PlayerSpawnManager : MonoBehaviour
         {
             if (walls[i].transform.position.x > mainCamera.transform.position.x)
             {
-                walls[i].SetActive(false);
+                walls[i].GetComponent<BoxCollider2D>().isTrigger = true;
             }
         }
     }
@@ -90,7 +125,7 @@ public class PlayerSpawnManager : MonoBehaviour
         {
             if (walls[i].transform.position.x < mainCamera.transform.position.x)
             {
-                walls[i].SetActive(false);
+                walls[i].GetComponent<BoxCollider2D>().isTrigger = true;
             }
         }
     }
