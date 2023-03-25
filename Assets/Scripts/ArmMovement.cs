@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,13 +13,22 @@ public class ArmMovement : MonoBehaviour
     public PlayerController playerController; //got lazy grabbed varaible from other script
     private SpriteRenderer sr;
     public SpriteRenderer tar;
+    public GameObject bulletref;
 
     public Sprite shoot;
     public Sprite noShoot;
+    public bool canSpawnBullet = true;
+    public float bulletSpawnCooldown = 1f; // adjust the cooldown duration as needed
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public Transform bulletSpawnPoint2;
+    public Transform gunTransform;
+
+   
+
 
     public GameObject player;
-    float moveHorizontal;
-    float moveVertical;
+    
 
     private int offset;
 
@@ -27,19 +37,12 @@ public class ArmMovement : MonoBehaviour
         offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
+        
+
     }
 
     private void Update()
     {
-        /* joystickValue = Gamepad.current.rightStick.ReadValue();
-
-         float moveHorizontal = joystickValue.x;
-         float moveVertical = joystickValue.y;
-
-         Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0f);
-
-         transform.rotation = Quaternion.LookRotation(Vector3.forward, movement);
-        */
         
     }
     private void FixedUpdate()
@@ -50,27 +53,29 @@ public class ArmMovement : MonoBehaviour
             
             sr.flipX = true;
             
+
         }
         else if (playerController.rb.velocity.x > 0)
         {
             
             sr.flipX = false;
+           
         }
-    }
-    public void MoveArm(InputAction.CallbackContext context) //idk why its 90 degrees off //Try looking at this https://docs.unity3d.com/ScriptReference/Transform.LookAt.html
-    {
-
         if (sr.flipX)
             offset = 178;
 
         if (!sr.flipX)
             offset = 2;
+    }
+    public void MoveArm(InputAction.CallbackContext context) //idk why its 90 degrees off //Try looking at this https://docs.unity3d.com/ScriptReference/Transform.LookAt.html
+    {
+
 
         float moveHorizontal = context.ReadValue<Vector2>().x;
         float moveVertical = context.ReadValue<Vector2>().y;
         
-        Debug.Log("Horizontal: " + moveHorizontal);
-        Debug.Log("Vertical: " + moveVertical);
+        //Debug.Log("Horizontal: " + moveHorizontal);
+        //Debug.Log("Vertical: " + moveVertical);
 
 
 
@@ -88,11 +93,56 @@ public class ArmMovement : MonoBehaviour
     {
         sr.sprite = shoot;
         Debug.Log("Shoot");
-        StartCoroutine(ResetSpriteAfterDelay(.5f));
+        if (context.performed && canSpawnBullet)
+        {
+            sr.sprite = shoot;
+            Debug.Log("Shoot");
+
+            // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
+            Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
+            Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
+            if (sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint2.position;
+                bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            if (!sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint.position;
+                bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            // Spawn bullet at the calculated position and rotation
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+
+
+            Vector3 shootDirection = transform.right;
+
+            if (sr.flipX)
+                shootDirection = -transform.right;
+
+            if (!sr.flipX)
+                shootDirection = transform.right;
+
+            // Add force to the bullet in the shoot direction
+            bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
+
+            canSpawnBullet = false;
+            StartCoroutine(StartBulletSpawnCooldown());
+        }
+
+
     }
     private IEnumerator ResetSpriteAfterDelay(float delay) //returns to default 
     {
         yield return new WaitForSeconds(delay);
+        sr.sprite = noShoot;
+    }
+
+    private IEnumerator StartBulletSpawnCooldown()
+    {
+        // Wait for specified duration
+        yield return new WaitForSeconds(bulletSpawnCooldown);
+
+        // Enable ability to spawn bullet again
+        canSpawnBullet = true;
         sr.sprite = noShoot;
     }
 }
