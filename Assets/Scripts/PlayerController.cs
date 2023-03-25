@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
-    private Rigidbody2D rb;         //The Rigidbody 2D attached to the Player
+    public Rigidbody2D rb;         //The Rigidbody 2D attached to the Player //did make public for personal use
     private SpriteRenderer sr;      //The Sprite Renderer attached to the Player
 
     public float inputX;           //States if the player is moving left or right
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void Jump(InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context) //broken sorry
     {
         if (isGrounded && context.performed)
         {
