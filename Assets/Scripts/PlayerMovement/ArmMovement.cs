@@ -96,41 +96,11 @@ public class ArmMovement : MonoBehaviour
     {
         try
         {
-            sr.sprite = shoot;
+            //sr.sprite = shoot;
             Debug.Log("Shoot");
             if (context.performed && canSpawnBullet)
             {
-                //sr.sprite = shoot;
-                Debug.Log("Shoot");
-
-                // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
-                Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
-                Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
-                if (sr.flipX)
-                    bulletSpawnPosition = bulletSpawnPoint2.position;
-                bulletSpawnRotation = bulletSpawnPoint.rotation;
-
-                if (!sr.flipX)
-                    bulletSpawnPosition = bulletSpawnPoint.position;
-                bulletSpawnRotation = bulletSpawnPoint.rotation;
-
-                // Spawn bullet at the calculated position and rotation
-                GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
-
-
-                Vector3 shootDirection = transform.right;
-
-                if (sr.flipX)
-                    shootDirection = -transform.right;
-
-                if (!sr.flipX)
-                    shootDirection = transform.right;
-
-                // Add force to the bullet in the shoot direction
-                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
-
-                canSpawnBullet = false;
-                StartCoroutine(StartBulletSpawnCooldown());
+                changeweapon(2);
             }
         }catch(Exception e)   
         {
@@ -145,10 +115,10 @@ public class ArmMovement : MonoBehaviour
         sr.sprite = noShoot;
     }
 
-    private IEnumerator StartBulletSpawnCooldown()
+    private IEnumerator StartBulletSpawnCooldown(float num)
     {
         // Wait for specified duration
-        yield return new WaitForSeconds(bulletSpawnCooldown);
+        yield return new WaitForSeconds(num);
 
         // Enable ability to spawn bullet again
         canSpawnBullet = true;
@@ -189,12 +159,42 @@ public class ArmMovement : MonoBehaviour
             bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
 
             canSpawnBullet = false;
-            StartCoroutine(StartBulletSpawnCooldown());
+            StartCoroutine(StartBulletSpawnCooldown(1f));
 
         }
         else if (num == 2)
         {
+            //sr.sprite = shoot;
+            Debug.Log("Shoot");
 
+            // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
+            Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
+            Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
+            if (sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint2.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            if (!sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            // Spawn bullet at the calculated position and rotation
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+
+
+            Vector3 shootDirection = transform.right;
+
+            if (sr.flipX)
+                shootDirection = -transform.right;
+
+            if (!sr.flipX)
+                shootDirection = transform.right;
+
+            // Add force to the bullet in the shoot direction
+            bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
+
+            canSpawnBullet = false;
+            StartCoroutine(StartBulletSpawnCooldown(.25f));
         }
         else if (num == 3)
         {
