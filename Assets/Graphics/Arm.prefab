@@ -100,5 +100,13 @@ MonoBehaviour:
   moveSpeed: 5
   playerController: {fileID: 0}
   tar: {fileID: 0}
+  bulletref: {fileID: 0}
   shoot: {fileID: 21300000, guid: 64790c54482d06a4f830cdcd45c710e4, type: 3}
   noShoot: {fileID: 21300000, guid: c0988d7bf092b214f899c6c9a9a65547, type: 3}
+  canSpawnBullet: 1
+  bulletSpawnCooldown: 1
+  bulletPrefab: {fileID: 0}
+  bulletSpawnPoint: {fileID: 0}
+  bulletSpawnPoint2: {fileID: 0}
+  gunTransform: {fileID: 0}
+  player: {fileID: 0}

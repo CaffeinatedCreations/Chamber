@@ -24,6 +24,7 @@ public class ArmMovement : MonoBehaviour
     public Transform bulletSpawnPoint;
     public Transform bulletSpawnPoint2;
     public Transform gunTransform;
+    private AudioSource audio;
 
     private int bulletstate = 1;
     private int weaponstate = 1;
@@ -40,6 +41,8 @@ public class ArmMovement : MonoBehaviour
         offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
+        audio = GetComponent<AudioSource>();
+        armID = GetComponentInParent<PlayerController>().playerID;
         
 
     }
@@ -94,6 +97,7 @@ public class ArmMovement : MonoBehaviour
 
     public void shootanimation(InputAction.CallbackContext context) //changes when trigger is pressed
     {
+
         try
         {
             //sr.sprite = shoot;
@@ -101,6 +105,41 @@ public class ArmMovement : MonoBehaviour
             if (context.performed && canSpawnBullet)
             {
                 changeweapon(2);
+                //sr.sprite = shoot;
+                Debug.Log("Shoot");
+                audio.PlayOneShot(audio.clip);
+
+                // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
+                Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
+                Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
+                if (sr.flipX)
+                    bulletSpawnPosition = bulletSpawnPoint2.position;
+                bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+                if (!sr.flipX)
+                    bulletSpawnPosition = bulletSpawnPoint.position;
+                bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+                // Spawn bullet at the calculated position and rotation
+                GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+
+
+                Vector3 shootDirection = transform.right;
+
+                if (sr.flipX)
+                    shootDirection = -transform.right;
+
+                //if (!sr.flipX)
+                //shootDirection = transform.right;
+
+                bullet.GetComponent<bulletcode>().userID = armID;
+                // Add force to the bullet in the shoot direction
+                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
+                
+
+                canSpawnBullet = false;
+                StartCoroutine(StartBulletSpawnCooldown());
+
             }
         }catch(Exception e)   
         {
