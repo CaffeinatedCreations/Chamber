@@ -51,5 +51,7 @@ public class SwitchScreen : MonoBehaviour
                 PlayerSpawnManager.instance.ForceRespawn(collision.GetComponent<PlayerInput>());
             }
         }
+
+        PlayerSpawnManager.instance.setControllable(true);
     }
 }

@@ -286,7 +286,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  isDead: 0
+  isControllable: 1
   playerID: 0
   spawnLocation: {x: 0, y: 0}
 --- !u!1 &3952573708931024136
