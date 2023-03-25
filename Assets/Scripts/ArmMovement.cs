@@ -20,8 +20,11 @@ public class ArmMovement : MonoBehaviour
     float moveHorizontal;
     float moveVertical;
 
+    private int offset;
+
     public void Start()
     {
+        offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
     }
@@ -56,6 +59,13 @@ public class ArmMovement : MonoBehaviour
     }
     public void MoveArm(InputAction.CallbackContext context) //idk why its 90 degrees off //Try looking at this https://docs.unity3d.com/ScriptReference/Transform.LookAt.html
     {
+
+        if (sr.flipX)
+            offset = 178;
+
+        if (!sr.flipX)
+            offset = 2;
+
         float moveHorizontal = context.ReadValue<Vector2>().x;
         float moveVertical = context.ReadValue<Vector2>().y;
         
@@ -63,8 +73,9 @@ public class ArmMovement : MonoBehaviour
         Debug.Log("Vertical: " + moveVertical);
 
 
+
         float angle = Mathf.Atan2(moveVertical, moveHorizontal) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 2));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + offset));
 
         // Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
