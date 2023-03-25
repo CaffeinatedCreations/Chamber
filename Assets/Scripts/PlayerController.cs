@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -14,8 +16,10 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;         //Determines how high the player jumps
 
     public bool isGrounded;         //States if the Player is on the ground or not
-    public Transform groundCheck;   //This must be touching ground for the player to jump
+    public List<Transform> groundCheck;   //This must be touching ground for the player to jump
     public LayerMask whatIsGround;  //States what is considered ground
+
+    
 
     
 
@@ -34,7 +38,10 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = new Vector2(inputX * moveSpeed, rb.velocity.y);
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.7f, whatIsGround); // Determines if the Player is on the Ground
+        isGrounded = Physics2D.OverlapCircle(groundCheck[0].position, 0.7f, whatIsGround); // Determines if the Player is on the Ground
+
+        if(!isGrounded)
+            isGrounded = Physics2D.OverlapCircle(groundCheck[1].position, 1f, whatIsGround);
 
         //Flips the way the Player Sprite is facing
         if (rb.velocity.x < 0)
@@ -63,7 +70,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void Jump(InputAction.CallbackContext context) //broken sorry
+    public void Jump(InputAction.CallbackContext context)
     {
         
         if (isGrounded && context.performed)

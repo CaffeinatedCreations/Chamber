@@ -16,6 +16,7 @@ public class ArmMovement : MonoBehaviour
     public Sprite shoot;
     public Sprite noShoot;
 
+    public GameObject player;
     float moveHorizontal;
     float moveVertical;
 
@@ -40,6 +41,7 @@ public class ArmMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        
         if (playerController.rb.velocity.x < 0) //if rb from player controller flip flip arm
         {
             
