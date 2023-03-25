@@ -2,7 +2,6 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
@@ -17,8 +16,6 @@ public class ArmMovement : MonoBehaviour
     public SpriteRenderer tar;
     public GameObject bulletref;
 
-    public int armID;
-
     public Sprite shoot;
     public Sprite noShoot;
     public bool canSpawnBullet = true;
@@ -27,28 +24,25 @@ public class ArmMovement : MonoBehaviour
     public Transform bulletSpawnPoint;
     public Transform bulletSpawnPoint2;
     public Transform gunTransform;
-    private AudioSource audio;
+    private AudioSource shootingAudio;
 
     private int bulletstate = 1;
     private int weaponstate = 1;
     private int defensestate = 1;
-    public float bulletForce;
-
-   
 
 
     public GameObject player;
-    
 
+    public float bulletForce;
+    public int armID;
     private int offset;
 
     public void Start()
     {
-        bulletForce = 12f;
         offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
-        audio = GetComponent<AudioSource>();
+        shootingAudio = GetComponent<AudioSource>();
         armID = GetComponentInParent<PlayerController>().playerID;
         
 
@@ -107,11 +101,14 @@ public class ArmMovement : MonoBehaviour
 
         try
         {
-            if (bulletstate == 1)
+            //sr.sprite = shoot;
+            Debug.Log("Shoot");
+            if (context.performed && canSpawnBullet)
             {
+                changeweapon(2);
                 //sr.sprite = shoot;
                 Debug.Log("Shoot");
-                audio.PlayOneShot(audio.clip);
+                shootingAudio.PlayOneShot(shootingAudio.clip);
 
                 // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
                 Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
@@ -142,23 +139,10 @@ public class ArmMovement : MonoBehaviour
                 
 
                 canSpawnBullet = false;
-                StartCoroutine(StartBulletSpawnCooldown());
+                StartCoroutine(StartBulletSpawnCooldown(bulletSpawnCooldown));
 
             }
-            else if (bulletstate == 2)
-            {
-
-            }
-            else if (bulletstate == 3)
-            {
-
-            }
-            else if (bulletstate == 4)
-            {
-
-            }
-        }
-        catch(Exception e)   
+        }catch(Exception e)   
         {
             Debug.Log(e.ToString());
         }
@@ -171,10 +155,10 @@ public class ArmMovement : MonoBehaviour
         sr.sprite = noShoot;
     }
 
-    private IEnumerator StartBulletSpawnCooldown()
+    private IEnumerator StartBulletSpawnCooldown(float num)
     {
         // Wait for specified duration
-        yield return new WaitForSeconds(bulletSpawnCooldown);
+        yield return new WaitForSeconds(num);
 
         // Enable ability to spawn bullet again
         canSpawnBullet = true;
@@ -183,6 +167,81 @@ public class ArmMovement : MonoBehaviour
 
     public void changeweapon(int num)
     {
-       
+        if (num == 1)
+        {
+            //sr.sprite = shoot;
+            Debug.Log("Shoot");
+
+            // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
+            Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
+            Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
+            if (sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint2.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            if (!sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            // Spawn bullet at the calculated position and rotation
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+
+
+            Vector3 shootDirection = transform.right;
+
+            if (sr.flipX)
+                shootDirection = -transform.right;
+
+            if (!sr.flipX)
+                shootDirection = transform.right;
+
+            // Add force to the bullet in the shoot direction
+            bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
+
+            canSpawnBullet = false;
+            StartCoroutine(StartBulletSpawnCooldown(1f));
+
+        }
+        else if (num == 2)
+        {
+            //sr.sprite = shoot;
+            Debug.Log("Shoot");
+
+            // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
+            Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
+            Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
+            if (sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint2.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            if (!sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            // Spawn bullet at the calculated position and rotation
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+
+
+            Vector3 shootDirection = transform.right;
+
+            if (sr.flipX)
+                shootDirection = -transform.right;
+
+            if (!sr.flipX)
+                shootDirection = transform.right;
+
+            // Add force to the bullet in the shoot direction
+            bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
+
+            canSpawnBullet = false;
+            StartCoroutine(StartBulletSpawnCooldown(.25f));
+        }
+        else if (num == 3)
+        {
+
+        }else if(num == 4)
+        {
+
+        }
     }
 }
