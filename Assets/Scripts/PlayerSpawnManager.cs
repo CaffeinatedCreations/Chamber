@@ -58,6 +58,7 @@ public class PlayerSpawnManager : MonoBehaviour
             Debug.Log(wheretoSpawn1 + " "+ playerID.playerIndex);
             playerID.GetComponent<Transform>().position = spawnLocationsPlayer1[wheretoSpawn1].position;
             DeactivateWallsLeft(walls);
+            CameraController.instance.moveLeft();
         }
 
         if (playerID.playerIndex == 1)
@@ -67,6 +68,7 @@ public class PlayerSpawnManager : MonoBehaviour
             Debug.Log(wheretoSpawn2 + " " + playerID.playerIndex);
             playerID.GetComponent<Transform>().position = spawnLocationsPlayer2[wheretoSpawn2].position;
             DeactivateWallsRight(walls);
+            CameraController.instance.moveRight();
         }
     }
 
@@ -84,7 +86,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public void DeactivateWallsLeft(GameObject[] walls)
     {
-        for (int i = 0; i <= walls.Length; i++)
+        for (int i = 0; i <= walls.Length - 1; i++)
         {
             if (walls[i].transform.position.x < mainCamera.transform.position.x)
             {
@@ -95,7 +97,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public void ActivateWalls(GameObject[] walls)
     {
-        for (int i = 0; i <= walls.Length; i++)
+        for (int i = 0; i <= walls.Length - 1; i++)
         {
             walls[i].SetActive(true);
         }
