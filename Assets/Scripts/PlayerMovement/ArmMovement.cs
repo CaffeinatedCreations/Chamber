@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
@@ -16,6 +17,8 @@ public class ArmMovement : MonoBehaviour
     public SpriteRenderer tar;
     public GameObject bulletref;
 
+    public int armID;
+
     public Sprite shoot;
     public Sprite noShoot;
     public bool canSpawnBullet = true;
@@ -25,6 +28,12 @@ public class ArmMovement : MonoBehaviour
     public Transform bulletSpawnPoint2;
     public Transform gunTransform;
     private AudioSource audio;
+
+    private int bulletstate = 1;
+    private int weaponstate = 1;
+    private int defensestate = 1;
+    public float bulletForce;
+
    
 
 
@@ -35,10 +44,12 @@ public class ArmMovement : MonoBehaviour
 
     public void Start()
     {
+        bulletForce = 12f;
         offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
         audio = GetComponent<AudioSource>();
+        armID = GetComponentInParent<PlayerController>().playerID;
         
 
     }
@@ -96,11 +107,9 @@ public class ArmMovement : MonoBehaviour
 
         try
         {
-            sr.sprite = shoot;
-            Debug.Log("Shoot");
-            if (context.performed && canSpawnBullet)
+            if (bulletstate == 1)
             {
-                sr.sprite = shoot;
+                //sr.sprite = shoot;
                 Debug.Log("Shoot");
                 audio.PlayOneShot(audio.clip);
 
@@ -124,16 +133,32 @@ public class ArmMovement : MonoBehaviour
                 if (sr.flipX)
                     shootDirection = -transform.right;
 
-                if (!sr.flipX)
-                    shootDirection = transform.right;
+                //if (!sr.flipX)
+                //shootDirection = transform.right;
 
+                bullet.GetComponent<bulletcode>().userID = armID;
                 // Add force to the bullet in the shoot direction
-                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
+                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
+                
 
                 canSpawnBullet = false;
                 StartCoroutine(StartBulletSpawnCooldown());
+
             }
-        }catch(Exception e)   
+            else if (bulletstate == 2)
+            {
+
+            }
+            else if (bulletstate == 3)
+            {
+
+            }
+            else if (bulletstate == 4)
+            {
+
+            }
+        }
+        catch(Exception e)   
         {
             Debug.Log(e.ToString());
         }
@@ -154,5 +179,10 @@ public class ArmMovement : MonoBehaviour
         // Enable ability to spawn bullet again
         canSpawnBullet = true;
         sr.sprite = noShoot;
+    }
+
+    public void changeweapon(int num)
+    {
+       
     }
 }
