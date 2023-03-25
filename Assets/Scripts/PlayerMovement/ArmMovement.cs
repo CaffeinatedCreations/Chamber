@@ -2,7 +2,6 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
@@ -17,8 +16,6 @@ public class ArmMovement : MonoBehaviour
     public SpriteRenderer tar;
     public GameObject bulletref;
 
-    public int armID;
-
     public Sprite shoot;
     public Sprite noShoot;
     public bool canSpawnBullet = true;
@@ -31,9 +28,6 @@ public class ArmMovement : MonoBehaviour
     private int bulletstate = 1;
     private int weaponstate = 1;
     private int defensestate = 1;
-    public float bulletForce;
-
-   
 
 
     public GameObject player;
@@ -43,11 +37,9 @@ public class ArmMovement : MonoBehaviour
 
     public void Start()
     {
-        bulletForce = 12f;
         offset = 2;
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
-        armID = GetComponentInParent<PlayerController>().playerID;
         
 
     }
@@ -104,7 +96,9 @@ public class ArmMovement : MonoBehaviour
     {
         try
         {
-            if (bulletstate == 1)
+            sr.sprite = shoot;
+            Debug.Log("Shoot");
+            if (context.performed && canSpawnBullet)
             {
                 //sr.sprite = shoot;
                 Debug.Log("Shoot");
@@ -129,32 +123,16 @@ public class ArmMovement : MonoBehaviour
                 if (sr.flipX)
                     shootDirection = -transform.right;
 
-                //if (!sr.flipX)
-                //shootDirection = transform.right;
+                if (!sr.flipX)
+                    shootDirection = transform.right;
 
-                bullet.GetComponent<bulletcode>().userID = armID;
                 // Add force to the bullet in the shoot direction
-                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
-                
+                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
 
                 canSpawnBullet = false;
                 StartCoroutine(StartBulletSpawnCooldown());
-
             }
-            else if (bulletstate == 2)
-            {
-
-            }
-            else if (bulletstate == 3)
-            {
-
-            }
-            else if (bulletstate == 4)
-            {
-
-            }
-        }
-        catch(Exception e)   
+        }catch(Exception e)   
         {
             Debug.Log(e.ToString());
         }
@@ -179,6 +157,51 @@ public class ArmMovement : MonoBehaviour
 
     public void changeweapon(int num)
     {
-       
+        if (num == 1)
+        {
+            //sr.sprite = shoot;
+            Debug.Log("Shoot");
+
+            // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
+            Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
+            Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
+            if (sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint2.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            if (!sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            // Spawn bullet at the calculated position and rotation
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+
+
+            Vector3 shootDirection = transform.right;
+
+            if (sr.flipX)
+                shootDirection = -transform.right;
+
+            if (!sr.flipX)
+                shootDirection = transform.right;
+
+            // Add force to the bullet in the shoot direction
+            bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
+
+            canSpawnBullet = false;
+            StartCoroutine(StartBulletSpawnCooldown());
+
+        }
+        else if (num == 2)
+        {
+
+        }
+        else if (num == 3)
+        {
+
+        }else if(num == 4)
+        {
+
+        }
     }
 }
