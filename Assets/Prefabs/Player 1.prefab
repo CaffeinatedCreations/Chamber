@@ -252,6 +252,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  playerDetails: {fileID: 0}
 --- !u!114 &3026580055578457070
 MonoBehaviour:
   m_ObjectHideFlags: 0
