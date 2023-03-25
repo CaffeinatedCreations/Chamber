@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;   //This must be touching ground for the player to jump
     public LayerMask whatIsGround;  //States what is considered ground
 
+    public PlayerDetails playerDetails;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,8 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         Debug.Log("Oops you died");
+        //To Do - Add Get a Skill on death
+        //playerDetails.spawnLocation = PlayerSpawnManager.instance.
     }
 
 
