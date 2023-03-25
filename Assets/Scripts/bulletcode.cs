@@ -5,9 +5,6 @@ using UnityEngine;
 public class bulletcode : MonoBehaviour
 
 {
-
-    public GameObject user;
-
     public int userID;
     // Start is called before the first frame update
     void Start()
@@ -29,11 +26,12 @@ public class bulletcode : MonoBehaviour
             collision.GetComponent<PlayerController>().Die();
         }
 
-        if (!collision.CompareTag("Player"))
+
+        if(collision.CompareTag("bullet") && !(collision.GetComponent<bulletcode>().userID == userID))
             Destroy(gameObject);
 
-
-
+        if (!collision.CompareTag("Player") && !collision.CompareTag("bullet"))
+            Destroy(gameObject);
 
     }
 }
