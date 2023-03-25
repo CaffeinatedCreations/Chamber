@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-
+    private CharacterController controller;
     private Rigidbody2D rb;         //The Rigidbody 2D attached to the Player
     private SpriteRenderer sr;      //The Sprite Renderer attached to the Player
 
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
     }
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = new Vector2(inputX * moveSpeed, rb.velocity.y);
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, whatIsGround); // Determines if the Player is on the Ground
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.7f, whatIsGround); // Determines if the Player is on the Ground
 
         //Flips the way the Player Sprite is facing
         if (rb.velocity.x < 0)
