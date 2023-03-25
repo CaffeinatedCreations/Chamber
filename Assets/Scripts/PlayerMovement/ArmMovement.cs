@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
@@ -25,7 +26,9 @@ public class ArmMovement : MonoBehaviour
     public Transform bulletSpawnPoint2;
     public Transform gunTransform;
 
-   
+    private int bulletstate = 1;
+    private int weaponstate = 1;
+    private int defensestate = 1;
 
 
     public GameObject player;
@@ -94,11 +97,9 @@ public class ArmMovement : MonoBehaviour
     {
         try
         {
-            sr.sprite = shoot;
-            Debug.Log("Shoot");
-            if (context.performed && canSpawnBullet)
+            if (bulletstate == 1)
             {
-                sr.sprite = shoot;
+                //sr.sprite = shoot;
                 Debug.Log("Shoot");
 
                 // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
@@ -129,8 +130,22 @@ public class ArmMovement : MonoBehaviour
 
                 canSpawnBullet = false;
                 StartCoroutine(StartBulletSpawnCooldown());
+
             }
-        }catch(Exception e)   
+            else if (bulletstate == 2)
+            {
+
+            }
+            else if (bulletstate == 3)
+            {
+
+            }
+            else if (bulletstate == 4)
+            {
+
+            }
+        }
+        catch(Exception e)   
         {
             Debug.Log(e.ToString());
         }
@@ -151,5 +166,10 @@ public class ArmMovement : MonoBehaviour
         // Enable ability to spawn bullet again
         canSpawnBullet = true;
         sr.sprite = noShoot;
+    }
+
+    public void changeweapon(int num)
+    {
+       
     }
 }

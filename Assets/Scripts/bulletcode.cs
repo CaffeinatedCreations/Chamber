@@ -20,6 +20,7 @@ public class bulletcode : MonoBehaviour
     {
 
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Check if the collision occurred with a player GameObject that is not the user GameObject
