@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;         //The Rigidbody 2D attached to the Player //did make public for personal use
@@ -58,9 +58,11 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         Debug.Log("Oops you died");
-        isControllable = false;
+        PlayerSpawnManager.instance.setControllable(false);
         rb.velocity = Vector2.zero;
-        //To Do - Add Get a Skill on death
+        UIManager.instance.turnOnBackground();
+        UIManager.instance.turnOnSkillSelector();
+        this.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
         PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
 
     }
