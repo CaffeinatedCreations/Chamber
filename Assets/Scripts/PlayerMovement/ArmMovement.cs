@@ -44,6 +44,7 @@ public class ArmMovement : MonoBehaviour
         sr.color = tar.color;
         shootingAudio = GetComponent<AudioSource>();
         armID = GetComponentInParent<PlayerController>().playerID;
+        bulletForce = 12f;
         
 
     }
@@ -105,6 +106,7 @@ public class ArmMovement : MonoBehaviour
             Debug.Log("Shoot");
             if (context.performed && canSpawnBullet)
             {
+                /*
                 changeweapon(2);
                 //sr.sprite = shoot;
                 Debug.Log("Shoot");
@@ -140,7 +142,8 @@ public class ArmMovement : MonoBehaviour
 
                 canSpawnBullet = false;
                 StartCoroutine(StartBulletSpawnCooldown(bulletSpawnCooldown));
-
+                */
+                changeweapon(weaponstate);
             }
         }catch(Exception e)   
         {
@@ -169,6 +172,7 @@ public class ArmMovement : MonoBehaviour
     {
         if (num == 1)
         {
+            shootingAudio.PlayOneShot(shootingAudio.clip);
             //sr.sprite = shoot;
             Debug.Log("Shoot");
 
@@ -195,8 +199,9 @@ public class ArmMovement : MonoBehaviour
             if (!sr.flipX)
                 shootDirection = transform.right;
 
+            bullet.GetComponent<bulletcode>().userID = armID;
             // Add force to the bullet in the shoot direction
-            bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
+            bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
 
             canSpawnBullet = false;
             StartCoroutine(StartBulletSpawnCooldown(1f));
@@ -204,6 +209,7 @@ public class ArmMovement : MonoBehaviour
         }
         else if (num == 2)
         {
+            shootingAudio.PlayOneShot(shootingAudio.clip);
             //sr.sprite = shoot;
             Debug.Log("Shoot");
 
