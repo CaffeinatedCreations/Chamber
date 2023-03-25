@@ -62,9 +62,13 @@ public class ArmMovement : MonoBehaviour
         Debug.Log("Horizontal: " + moveHorizontal);
         Debug.Log("Vertical: " + moveVertical);
 
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, movement);
+        float angle = Mathf.Atan2(moveVertical, moveHorizontal) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 2));
+
+        // Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+
+        //transform.rotation = Quaternion.LookRotation(Vector3.forward, movement);
 
     }
     

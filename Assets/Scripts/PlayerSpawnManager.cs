@@ -73,7 +73,7 @@ public class PlayerSpawnManager : MonoBehaviour
 
     public void DeactivateWallsRight(GameObject[] walls)
     {
-        for (int i = 0; i <= walls.Length; i++)
+        for (int i = 0; i <= walls.Length - 1; i++)
         {
             if (walls[i].transform.position.x > mainCamera.transform.position.x)
             {
