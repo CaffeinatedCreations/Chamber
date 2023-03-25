@@ -62,8 +62,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2502777359685168808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.01, y: -0.74, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.6846, y: -7.1559, z: 0}
+  m_LocalScale: {x: 0.13850403, y: 0.13850403, z: 0.13850403}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2502777359561917062}
@@ -112,7 +112,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c9599369a44073c40a9220232f093a1d, type: 3}
   m_Color: {r: 0.39006615, g: 0.9056604, b: 0.2007832, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -180,6 +180,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e6798ca3-9301-4a40-91c1-667525f049b3
     m_ActionName: Player/Jump
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5761100190825863086}
+        m_TargetAssemblyTypeName: ArmMovement, Assembly-CSharp
+        m_MethodName: MoveArm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 57fb2fee-56b0-45c1-9bbd-c7d31284e682
+    m_ActionName: Player/Arm Movement[/DualSenseGamepadHID/rightStick,/XInputControllerWindows/rightStick]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -219,18 +235,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.22921681, y: 0.09005642}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 12.36, y: 18.88}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 13.151913, y: 19.047548}
   m_EdgeRadius: 0
 --- !u!114 &2502777359685168791
 MonoBehaviour:
@@ -244,6 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c54c226e05c17f4b877dd65fc8db48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   inputX: 0
   moveSpeed: 15
   jumpForce: 8
@@ -280,7 +297,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  joystickValue: {x: 0, y: 0}
+  playerController: {fileID: 0}
+  tar: {fileID: 0}
 --- !u!1 &3952573708931024136
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,14 +324,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3952573708931024136}
-  m_LocalRotation: {x: 0.0022158115, y: -0.008493024, z: -0.24989758, w: 0.9682326}
-  m_LocalPosition: {x: 0.053, y: -0.077, z: -0.278}
-  m_LocalScale: {x: 0.14135, y: 0.1456, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.39, y: 2.39, z: -0.278}
+  m_LocalScale: {x: 0.6545353, y: 0.6742154, z: 4.6306}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2502777359685168788}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0.003, y: -1.006, z: -28.944}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4003638461796261252
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -356,7 +374,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0578899e62c371e428ac7cac06b2f39e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.14643356, g: 0.7264151, b: 0.119927004, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -379,4 +397,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  joystickValue: {x: 0, y: 0}
+  playerController: {fileID: 2502777359685168791}
+  tar: {fileID: 2502777359685168789}
