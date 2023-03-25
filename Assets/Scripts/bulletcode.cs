@@ -6,6 +6,9 @@ public class bulletcode : MonoBehaviour
 
 {
 
+    public PlayerController shooter;
+
+    public GameObject user;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,9 +22,17 @@ public class bulletcode : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "bullet")
+        // Check if the collision occurred with a player GameObject that is not the user GameObject
+        if (collision.CompareTag("Player") && collision.gameObject != user)
         {
-            Destroy(this.gameObject);
+            collision.GetComponent<PlayerController>().Die();
+        }
+
+        // Check if the collision occurred with something other than the user GameObject
+        if (collision.gameObject != user)
+        {
+            // Destroy the bullet GameObject
+            Destroy(gameObject);
         }
     }
 }
