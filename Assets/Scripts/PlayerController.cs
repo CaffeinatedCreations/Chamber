@@ -56,20 +56,9 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        PlayerSpawnManager.instance.numDeadCharacters++;
         Debug.Log("Oops you died");
         //To Do - Add Get a Skill on death
-
-        if (PlayerSpawnManager.instance.numDeadCharacters > 1)
-        {
-            PlayerSpawnManager.instance.RespawnBoth();
-            PlayerSpawnManager.instance.numDeadCharacters = 0;
-        }
-        else
-        {
-            PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
-            PlayerSpawnManager.instance.numDeadCharacters--;
-        }
+        PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
 
     }
 
