@@ -48,6 +48,8 @@ public class ArmMovement : MonoBehaviour
 
     public soundManagerScript soundManager;
 
+    public GameObject shieldobj;
+
     public void Start()
     {
         offset = 2;
@@ -57,6 +59,7 @@ public class ArmMovement : MonoBehaviour
         shootingAudio = GetComponent<AudioSource>();
         armID = GetComponentInParent<PlayerController>().playerID;
         bulletForce = 12f;
+        shieldobj.SetActive(false);
 
 
 
@@ -114,10 +117,14 @@ public class ArmMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            shield(defensestate);
+            shield(2);
         }
     }
-
+    private IEnumerator shieldwait(float num)
+    {
+        yield return new WaitForSeconds(num);
+        shieldobj.SetActive(false);
+    }
     public void shield(int a)
     {
 
@@ -126,19 +133,9 @@ public class ArmMovement : MonoBehaviour
             player.tag = "Invincible";
         }else if(a == 2)
         {
-            //bubble
-            void OnCollisionEnter2D(Collision2D collision)
-            {
-                rb = GetComponent<Rigidbody>();
+            shieldobj.SetActive(true);
+            StartCoroutine(shieldwait(1.5f));
 
-                // Get the normal of the collision to reflect the bullet's velocity
-                Vector2 normal = collision.contacts[0].normal;
-                Vector2 newVelocity = Vector2.Reflect(rb.velocity, normal);
-
-                // Set the new velocity to the bullet
-                rb.velocity = newVelocity;
-                
-            }
         }
         else if(a ==3)
         {

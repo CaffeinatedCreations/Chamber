@@ -363,8 +363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3e44d23aabbe84c95a1af7f63f7d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: {fileID: 7543531850212271833}
-  bulletPrefab: {fileID: 0}
 --- !u!1 &3952573708931024136
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,10 +481,9 @@ MonoBehaviour:
   bulletForce: 0
   armID: 0
   weapon: 
-  reflection: {fileID: 0}
-  shieldprefab: {fileID: 7543531850212271833}
   laserprefab: {fileID: 7809845439116041201, guid: 61c6a10cf08fb964fb08a3459cf40ced, type: 3}
   soundManager: {fileID: 0}
+  shieldobj: {fileID: 7543531850212271833}
 --- !u!82 &4069499762442454677
 AudioSource:
   m_ObjectHideFlags: 0
@@ -738,8 +735,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3e44d23aabbe84c95a1af7f63f7d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: {fileID: 7543531850212271833}
-  bulletPrefab: {fileID: 8743155405864065781, guid: 8fcdcac92e5df9a4896655929aa8b9e4, type: 3}
 --- !u!1 &7823048313198342642
 GameObject:
   m_ObjectHideFlags: 0
