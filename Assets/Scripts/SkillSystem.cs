@@ -7,25 +7,20 @@ using UnityEngine.UI;
 public class SkillSystem : MonoBehaviour
 {
     public static SkillSystem instance;
-    public int playerID;
-    public List<TMP_Text> skillName;
-    public List<TMP_Text> skillDescription;
-    public List<Image> Icon;
-    private string bulletEffect, weapon, defense;
-    public List<CreateSkill> upgradesBullet, upgradesWeapon, upgradesDefense;
-    //public List<Button> button;
+    public int playerID = -1;
     public GameObject thisObject;
 
     private void Awake()
     {
         instance = this;
-        bulletEffect = PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().bulletEffect;
-        weapon = PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().weapon;
-        defense = PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().defensive;
     }
 
 
-
+    public void SetID(int desID)
+    {
+        Debug.Log("Setting ID");
+        playerID = desID;
+    }
 
     public void giveShotgun()
     {

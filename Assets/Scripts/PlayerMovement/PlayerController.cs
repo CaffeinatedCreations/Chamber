@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;         //The Rigidbody 2D attached to the Player //did make public for personal use
     private SpriteRenderer sr;      //The Sprite Renderer attached to the Player
+    public GameObject eventSystem;
 
     public float inputX;           //States if the player is moving left or right
     public float moveSpeed;         //Determines how fast the player moves
@@ -62,12 +63,9 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Oops you died");
         PlayerSpawnManager.instance.setControllable(false);
-        SkillSystem.instance.playerID = playerID;
         rb.velocity = Vector2.zero;
-
-
-        UIManager.instance.turnOnBackground();
-        UIManager.instance.turnOnSkillSelector();
+        SkillSystem.instance.SetID(playerID);
+        
 
         if (bulletEffect == "" && weapon == "" && defensive == "")
         {
@@ -92,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //this.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+        this.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
         PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
 
     }
