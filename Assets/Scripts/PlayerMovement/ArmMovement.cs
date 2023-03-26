@@ -30,10 +30,11 @@ public class ArmMovement : MonoBehaviour
     private AudioSource shootingAudio;
     private int bulletstate = 1;
     public int weaponstate = 3;
-    private int defensestate = 1;
+    private int defensestate = 0;
 
 
     public GameObject player;
+    public GameObject playerPrefab;
 
     public float bulletForce;
     public int armID;
@@ -51,8 +52,8 @@ public class ArmMovement : MonoBehaviour
         shootingAudio = GetComponent<AudioSource>();
         armID = GetComponentInParent<PlayerController>().playerID;
         bulletForce = 12f;
-        
-        
+
+
 
     }
 
@@ -102,7 +103,28 @@ public class ArmMovement : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(Vector3.forward, movement);
 
     }
-    
+
+    public void Block(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            shield(defensestate);
+        }
+    }
+
+    public void shield(int a)
+    {
+        if(a == 1)
+        {
+            //player.tag == "Invincible";
+        }else if(a == 2)
+        {
+
+        }else if(a ==3)
+        {
+
+        }
+    }
 
     public void shootanimation(InputAction.CallbackContext context) //changes when trigger is pressed
     {
