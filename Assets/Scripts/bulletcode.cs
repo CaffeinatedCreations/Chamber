@@ -46,18 +46,23 @@ public class bulletcode : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("shield"))
+        {
+            // Refelect the bullet if it collides with a shield
+            Vector3 newVelocity = Vector3.Reflect(transform.forward, collision.transform.forward);
+            GetComponent<Rigidbody2D>().velocity = newVelocity;
+        }
         // Check if the collision occurred with a player GameObject that is not the user GameObject
-        if (collision.CompareTag("Player") && collision.GetComponent<PlayerController>().playerID != userID)
+        else if (collision.CompareTag("Player") && collision.GetComponent<PlayerController>().playerID != userID)
         {
             Destroy(gameObject);
             collision.GetComponent<PlayerController>().Die();
-        }
-
-
-        if(collision.CompareTag("bullet") && !(collision.GetComponent<bulletcode>().userID == userID))
+        }else if(collision.CompareTag("bullet") && !(collision.GetComponent<bulletcode>().userID == userID))
             Destroy(gameObject);
 
-        if (!collision.CompareTag("Player") && !collision.CompareTag("bullet"))
+
+        
+        else if(!collision.CompareTag("Player") && !collision.CompareTag("bullet"))
             Destroy(gameObject);
 
     }

@@ -64,7 +64,8 @@ public class ArmMovement : MonoBehaviour
 
     private void Update()
     {
-        
+        weapon = GetComponentInParent<PlayerController>().weapon;
+
     }
     private void FixedUpdate()
     {
@@ -153,9 +154,9 @@ public class ArmMovement : MonoBehaviour
             //sr.sprite = shoot;
             //Debug.Log("Shoot");
             if (context.performed && canSpawnBullet)
-            {
-                weapon = GetComponentInParent<PlayerController>().weapon;
+            { 
                 changeweapon(weapon);
+                Debug.Log("Changed weapon to: " + weapon);
             }
         }catch(Exception e)   
         {
