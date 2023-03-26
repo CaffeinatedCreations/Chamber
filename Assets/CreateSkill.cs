@@ -7,6 +7,6 @@ using TMPro;
 [CreateAssetMenu(fileName = "Skill", menuName = "ScriptableObjects/Skill", order = 1)]
 public class CreateSkill : ScriptableObject
 {
-    public Image icon;
+    public Sprite icon;
     public string skillCategory, desc, skillName;
 }

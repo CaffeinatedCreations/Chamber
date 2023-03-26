@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c22065a8fe2984489fbe60f2b77be4, type: 3}
   m_Name: Block
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 62630a5edaf0bfd44b7f9c13921f2bbe, type: 3}
   skillCategory: Defense
   desc: Allows you to briefly block your opponent's bullets.
   skillName: Block
