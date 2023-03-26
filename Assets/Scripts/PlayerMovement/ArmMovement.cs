@@ -39,6 +39,7 @@ public class ArmMovement : MonoBehaviour
     public float bulletForce;
     public int armID = -1;
     private int offset;
+    private Rigidbody rb;
 
     public GameObject laserprefab;
 
@@ -114,15 +115,29 @@ public class ArmMovement : MonoBehaviour
 
     public void shield(int a)
     {
+
         if(a == 1)
         {
-            //player.tag == "Invincible";
+            player.tag = "Invincible";
         }else if(a == 2)
         {
+            //bubble
+            void OnCollisionEnter2D(Collision2D collision)
+            {
+                rb = GetComponent<Rigidbody>();
 
-        }else if(a ==3)
+                // Get the normal of the collision to reflect the bullet's velocity
+                Vector2 normal = collision.contacts[0].normal;
+                Vector2 newVelocity = Vector2.Reflect(rb.velocity, normal);
+
+                // Set the new velocity to the bullet
+                rb.velocity = newVelocity;
+                
+            }
+        }
+        else if(a ==3)
         {
-
+            //disarms gun to stop
         }
     }
 
@@ -342,7 +357,7 @@ public class ArmMovement : MonoBehaviour
             canSpawnBullet = false;
             StartCoroutine(nowait(1f));
         }
-        else if(num == 4)
+        else if(num == 4) //laser sword
         {
             shootingAudio.PlayOneShot(shootingAudio.clip);
             //sr.sprite = shoot;
