@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public int currentPlayerIndex = 0;
 
     [SerializeField]
-    private GameObject blackBackground, SkillSelectScreen, GunHolder, BulletHolder, DefenseHolder;
+    private GameObject blackBackground, SkillSelectScreen, GunHolder, BulletHolder, DefenseHolder, WinScreenBlue, WinScreenGreen;
 
     [SerializeField]
     private GameObject gunButton, bulletButton, defenseButton;
@@ -28,7 +28,15 @@ public class UIManager : MonoBehaviour
     }
 
 
+    public void winScreenOnBlue()
+    {
+        WinScreenBlue.SetActive(true);
+    }
 
+    public void winScreenOnGreen()
+    {
+        WinScreenGreen.SetActive(true);
+    }
 
     public void turnOnBackground()
     {

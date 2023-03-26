@@ -21,6 +21,8 @@ public class SwitchScreen : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+
+            Debug.Log("Calling move");
             if (collision.GetComponent<PlayerController>().playerID == 0)
             {
                 CameraController.instance.moveRight();
