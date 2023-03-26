@@ -146,4 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b4397092db8c543b7bacf29de8e49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  user: {fileID: 2502777359685168808, guid: a24de175664b19b4aa1dc2b6b9d7a263, type: 3}
+  bulletEffect: Homing
+  userID: 0
+  target: {fileID: 0}

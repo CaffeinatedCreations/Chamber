@@ -36,7 +36,7 @@ public class ArmMovement : MonoBehaviour
     public GameObject player;
 
     public float bulletForce;
-    public int armID;
+    public int armID = -1;
     private int offset;
 
     public Transform laser;
@@ -218,6 +218,9 @@ public class ArmMovement : MonoBehaviour
             // Spawn bullet at the calculated position and rotation
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
 
+            Debug.Log("Calling Set ID");
+            bullet.GetComponent<bulletcode>().setID(armID);
+
 
             Vector3 shootDirection = transform.right;
 
@@ -227,7 +230,7 @@ public class ArmMovement : MonoBehaviour
             if (!sr.flipX)
                 shootDirection = transform.right;
 
-            bullet.GetComponent<bulletcode>().userID = armID;
+            
             // Add force to the bullet in the shoot direction
             bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
 
