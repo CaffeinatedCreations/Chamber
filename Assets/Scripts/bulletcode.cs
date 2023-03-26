@@ -38,7 +38,7 @@ public class bulletcode : MonoBehaviour
 
     public void setID(int desID)
     {
-        //Debug.Log("Set ID To: " + desID);
+        Debug.Log("Set ID To: " + desID);
         userID = desID;
     }
 
@@ -46,23 +46,18 @@ public class bulletcode : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("shield"))
-        {
-            // Refelect the bullet if it collides with a shield
-            Vector3 newVelocity = Vector3.Reflect(transform.forward, collision.transform.forward);
-            GetComponent<Rigidbody2D>().velocity = newVelocity;
-        }
         // Check if the collision occurred with a player GameObject that is not the user GameObject
-        else if (collision.CompareTag("Player") && collision.GetComponent<PlayerController>().playerID != userID)
+        if (collision.CompareTag("Player") && collision.GetComponent<PlayerController>().playerID != userID)
         {
             Destroy(gameObject);
             collision.GetComponent<PlayerController>().Die();
-        }else if(collision.CompareTag("bullet") && !(collision.GetComponent<bulletcode>().userID == userID))
+        }
+
+
+        if(collision.CompareTag("bullet") && !(collision.GetComponent<bulletcode>().userID == userID))
             Destroy(gameObject);
 
-
-        
-        else if(!collision.CompareTag("Player") && !collision.CompareTag("bullet"))
+        if (!collision.CompareTag("Player") && !collision.CompareTag("bullet"))
             Destroy(gameObject);
 
     }
