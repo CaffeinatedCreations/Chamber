@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class soundManagerScript : MonoBehaviour
 {
-    public static AudioClip GunShotSound;
+    public AudioClip GunShotSound;
     static AudioSource audioSrc;
     void Start()
     {
@@ -17,7 +17,7 @@ public class soundManagerScript : MonoBehaviour
     {
         
     }
-    public static void PlaySound (string clip){
+    public void PlaySound (string clip){
         switch (clip) {
             case "51749__erkanozan__gunshot ":
             audioSrc.PlayOneShot(GunShotSound);

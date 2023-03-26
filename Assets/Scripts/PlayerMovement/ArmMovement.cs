@@ -39,6 +39,13 @@ public class ArmMovement : MonoBehaviour
     public int armID;
     private int offset;
 
+    public Transform laser;
+    public Transform laser2;
+    public GameObject ls;
+    public GameObject ls2;
+
+    public soundManagerScript soundManager;
+
     public void Start()
     {
         offset = 2;
@@ -47,6 +54,8 @@ public class ArmMovement : MonoBehaviour
         shootingAudio = GetComponent<AudioSource>();
         armID = GetComponentInParent<PlayerController>().playerID;
         bulletForce = 12f;
+        ls.SetActive(false);
+        ls2.SetActive(false);
         
 
     }
@@ -103,6 +112,7 @@ public class ArmMovement : MonoBehaviour
     {
         try
         {
+            //soundManager.PlaySound("happytime");
             //sr.sprite = shoot;
             Debug.Log("Shoot");
             if (context.performed && canSpawnBullet)
@@ -174,6 +184,16 @@ public class ArmMovement : MonoBehaviour
         // Enable ability to spawn bullet again
         canSpawnBullet = true;
         sr.sprite = noShoot;
+    }
+    private IEnumerator lasershot(float num)
+    {
+        yield return new WaitForSeconds(num);
+        if (sr.flipX)
+            ls.SetActive(false);
+
+        if (!sr.flipX)
+            ls2.SetActive(false);
+            
     }
 
     public void changeweapon(int num)
@@ -295,7 +315,31 @@ public class ArmMovement : MonoBehaviour
         }
         else if(num == 4)
         {
+            shootingAudio.PlayOneShot(shootingAudio.clip);
+            Debug.Log("Shoot");
 
+            // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
+            Vector3 bulletSpawnPosition = laser.position;
+            Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
+            if (sr.flipX)
+                bulletSpawnPosition = laser2.position;
+                bulletSpawnRotation = bulletSpawnPoint.rotation;
+                ls2.SetActive(true);
+
+            if (!sr.flipX)
+                bulletSpawnPosition = laser.position;
+                bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+
+            // Calculate the shoot directions
+            Vector3 shootDirection1 = Quaternion.Euler(0, 0, 20) * transform.right;
+            ls2.SetActive(true);
+
+
+
+
+            canSpawnBullet = false;
+            StartCoroutine(lasershot(5f));
         }
     }
 }
