@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Homing
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillCategory: 
-  desc: 
-  skillName: 
+  skillCategory: Effect
+  desc: Let's your bullets home in your opponent
+  skillName: Homing

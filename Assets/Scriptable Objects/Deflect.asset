@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Deflect
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillCategory: 
-  desc: 
-  skillName: 
+  skillCategory: Defense
+  desc: Let's your send your opponents bullets right back at them if you time it
+    right.
+  skillName: Deflect

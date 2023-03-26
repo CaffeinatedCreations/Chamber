@@ -114,7 +114,7 @@ public class ArmMovement : MonoBehaviour
         {
             //soundManager.PlaySound("happytime");
             //sr.sprite = shoot;
-            Debug.Log("Shoot");
+            //Debug.Log("Shoot");
             if (context.performed && canSpawnBullet)
             {
                 /*

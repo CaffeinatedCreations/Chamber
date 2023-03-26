@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillCategory: 
-  desc: 
-  skillName: 
+  skillCategory: Weapon
+  desc: Gives you a magical sword which can shoot ultra fast lazers from its tip,
+    but prevents your bullet effects from happening.
+  skillName: Sword

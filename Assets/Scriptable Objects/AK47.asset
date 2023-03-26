@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: AK47
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillCategory: 
-  skillEffect: 
-  desc: 
-  skillName: 
+  skillCategory: Weapon
+  desc: Gives your weapon burst fire
+  skillName: AK47
