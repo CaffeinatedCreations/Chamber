@@ -42,6 +42,8 @@ public class ArmMovement : MonoBehaviour
     private Rigidbody rb;
 
     public string weapon;
+    public reflectScript reflection;
+    public GameObject shieldprefab;
 
 
     public GameObject laserprefab;
@@ -57,6 +59,7 @@ public class ArmMovement : MonoBehaviour
         shootingAudio = GetComponent<AudioSource>();
         armID = GetComponentInParent<PlayerController>().playerID;
         bulletForce = 12f;
+        shieldprefab.SetActive(false);
 
 
 
@@ -108,12 +111,20 @@ public class ArmMovement : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(Vector3.forward, movement);
 
     }
+    //shield timer stuff
+    private IEnumerator shieldactive(float num)
+    {
+        yield return new WaitForSeconds(num);
+        // Enable ability to shield
+        shieldprefab.SetActive(false);
+    }
 
     public void Block(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            shield(defensestate);
+            shield(2);
+            
         }
     }
 
@@ -125,19 +136,13 @@ public class ArmMovement : MonoBehaviour
             player.tag = "Invincible";
         }else if(a == 2)
         {
-            //bubble
-            void OnCollisionEnter2D(Collision2D collision)
-            {
-                rb = GetComponent<Rigidbody>();
+            Debug.Log("Starting shield active coroutine");
+            shieldprefab.SetActive(true);
+            StartCoroutine(shieldactive(1.5f));
+            Debug.Log("shielddeac");
+            //shieldprefab.SetActive(false);
 
-                // Get the normal of the collision to reflect the bullet's velocity
-                Vector2 normal = collision.contacts[0].normal;
-                Vector2 newVelocity = Vector2.Reflect(rb.velocity, normal);
 
-                // Set the new velocity to the bullet
-                rb.velocity = newVelocity;
-                
-            }
         }
         else if(a ==3)
         {
