@@ -16,6 +16,8 @@ public class ArmMovement : MonoBehaviour
     public SpriteRenderer tar;
     public GameObject bulletref;
 
+    
+
     public Sprite shoot;
     public Sprite noShoot;
     public bool canSpawnBullet = true;
@@ -27,7 +29,7 @@ public class ArmMovement : MonoBehaviour
     private AudioSource shootingAudio;
 
     private int bulletstate = 1;
-    private int weaponstate = 1;
+    public int weaponstate = 3;
     private int defensestate = 1;
 
 
@@ -99,7 +101,6 @@ public class ArmMovement : MonoBehaviour
 
     public void shootanimation(InputAction.CallbackContext context) //changes when trigger is pressed
     {
-
         try
         {
             //sr.sprite = shoot;
@@ -143,7 +144,7 @@ public class ArmMovement : MonoBehaviour
                 canSpawnBullet = false;
                 StartCoroutine(StartBulletSpawnCooldown(bulletSpawnCooldown));
                 */
-                changeweapon(weaponstate);
+                changeweapon(3);
             }
         }catch(Exception e)   
         {
@@ -163,6 +164,13 @@ public class ArmMovement : MonoBehaviour
         // Wait for specified duration
         yield return new WaitForSeconds(num);
 
+        // Enable ability to spawn bullet again
+        canSpawnBullet = true;
+        sr.sprite = noShoot;
+    }
+    private IEnumerator nowait(float num)
+    {
+        yield return new WaitForSeconds(num);
         // Enable ability to spawn bullet again
         canSpawnBullet = true;
         sr.sprite = noShoot;
@@ -207,7 +215,7 @@ public class ArmMovement : MonoBehaviour
             StartCoroutine(StartBulletSpawnCooldown(1f));
 
         }
-        else if (num == 2)
+        else if (num == 2) //uzi
         {
             shootingAudio.PlayOneShot(shootingAudio.clip);
             //sr.sprite = shoot;
@@ -226,6 +234,7 @@ public class ArmMovement : MonoBehaviour
 
             // Spawn bullet at the calculated position and rotation
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+           
 
 
             Vector3 shootDirection = transform.right;
@@ -239,13 +248,52 @@ public class ArmMovement : MonoBehaviour
             // Add force to the bullet in the shoot direction
             bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * 12f, ForceMode2D.Impulse);
 
-            canSpawnBullet = false;
-            StartCoroutine(StartBulletSpawnCooldown(.25f));
-        }
-        else if (num == 3)
-        {
 
-        }else if(num == 4)
+            canSpawnBullet = false;
+            StartCoroutine(nowait(0f));
+        }
+        else if (num == 3) //shotgun
+        {
+            shootingAudio.PlayOneShot(shootingAudio.clip);
+            Debug.Log("Shoot");
+
+            // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
+            Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
+            Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
+            if (sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint2.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            if (!sr.flipX)
+                bulletSpawnPosition = bulletSpawnPoint.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            // Spawn bullet at the calculated position and rotation
+            GameObject bullet1 = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+            GameObject bullet2 = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+            GameObject bullet3 = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+
+            // Calculate the shoot directions
+            Vector3 shootDirection1 = Quaternion.Euler(0, 0, 20) * transform.right;
+            Vector3 shootDirection2 = transform.right;
+            Vector3 shootDirection3 = Quaternion.Euler(0, 0, -20) * transform.right;
+
+            if (sr.flipX)
+            {
+                shootDirection1 = -shootDirection1;
+                shootDirection2 = -shootDirection2;
+                shootDirection3 = -shootDirection3;
+            }
+
+            // Add force to the bullets in the shoot directions
+            bullet1.GetComponent<Rigidbody2D>().AddForce(shootDirection1 * 12f, ForceMode2D.Impulse);
+            bullet2.GetComponent<Rigidbody2D>().AddForce(shootDirection2 * 12f, ForceMode2D.Impulse);
+            bullet3.GetComponent<Rigidbody2D>().AddForce(shootDirection3 * 12f, ForceMode2D.Impulse);
+
+            canSpawnBullet = false;
+            StartCoroutine(nowait(1f));
+        }
+        else if(num == 4)
         {
 
         }
