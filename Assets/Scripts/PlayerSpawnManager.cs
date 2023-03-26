@@ -140,6 +140,18 @@ public class PlayerSpawnManager : MonoBehaviour
         }
     }
 
+    public void activate()
+    {
+        ActivateWalls(walls);
+    }
+
+    public void ActivateWalls(GameObject[] walls) {
+        for (int i = 0; i <= walls.Length - 1; i++)
+        {
+            walls[i].GetComponent<BoxCollider2D>().isTrigger = false;
+        }
+    }
+
     public void setControllable(bool controllable)
     {
         players[0].GetComponent<PlayerController>().isControllable = controllable;

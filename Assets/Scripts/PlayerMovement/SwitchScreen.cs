@@ -41,7 +41,8 @@ public class SwitchScreen : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            this.GetComponent<BoxCollider2D>().isTrigger = false;
+            PlayerSpawnManager.instance.activate();
+            //this.GetComponent<BoxCollider2D>().isTrigger = false;
 
             if (collision.GetComponent<PlayerController>().playerID == 0 && collision.GetComponent<SpriteRenderer>().flipX)
             {
