@@ -150,7 +150,7 @@ public class ArmMovement : MonoBehaviour
                 canSpawnBullet = false;
                 StartCoroutine(StartBulletSpawnCooldown(bulletSpawnCooldown));
                 */
-                changeweapon(4);
+                changeweapon(3);
             }
         }catch(Exception e)   
         {
