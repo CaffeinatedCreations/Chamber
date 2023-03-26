@@ -14,7 +14,7 @@ public class PlayerSpawnManager : MonoBehaviour
     public List<Transform> spawnLocationsPlayer2;
 
     [SerializeField]
-    private PlayerInput[] players;
+    public PlayerInput[] players;
 
     private GameObject[] walls;
     public Camera mainCamera;
