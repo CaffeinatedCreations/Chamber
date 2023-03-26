@@ -39,10 +39,7 @@ public class ArmMovement : MonoBehaviour
     public int armID = -1;
     private int offset;
 
-    public Transform laser;
-    public Transform laser2;
-    public GameObject ls;
-    public GameObject ls2;
+    public GameObject laserprefab;
 
     public soundManagerScript soundManager;
 
@@ -54,8 +51,7 @@ public class ArmMovement : MonoBehaviour
         shootingAudio = GetComponent<AudioSource>();
         armID = GetComponentInParent<PlayerController>().playerID;
         bulletForce = 12f;
-        ls.SetActive(false);
-        ls2.SetActive(false);
+        
         
 
     }
@@ -154,7 +150,7 @@ public class ArmMovement : MonoBehaviour
                 canSpawnBullet = false;
                 StartCoroutine(StartBulletSpawnCooldown(bulletSpawnCooldown));
                 */
-                changeweapon(3);
+                changeweapon(4);
             }
         }catch(Exception e)   
         {
@@ -187,13 +183,21 @@ public class ArmMovement : MonoBehaviour
     }
     private IEnumerator lasershot(float num)
     {
+        Debug.Log("Lasershot started");
         yield return new WaitForSeconds(num);
+
         if (sr.flipX)
-            ls.SetActive(false);
+        {
+           
+            Debug.Log("ls deactivated");
+        }
 
         if (!sr.flipX)
-            ls2.SetActive(false);
-            
+        {
+           
+            Debug.Log("ls2 deactivated");
+
+        }
     }
 
     public void changeweapon(int num)
@@ -319,30 +323,37 @@ public class ArmMovement : MonoBehaviour
         else if(num == 4)
         {
             shootingAudio.PlayOneShot(shootingAudio.clip);
+            //sr.sprite = shoot;
             Debug.Log("Shoot");
-
             // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
-            Vector3 bulletSpawnPosition = laser.position;
+            Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
             Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
             if (sr.flipX)
-                bulletSpawnPosition = laser2.position;
-                bulletSpawnRotation = bulletSpawnPoint.rotation;
-                ls2.SetActive(true);
+                bulletSpawnPosition = bulletSpawnPoint2.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
 
             if (!sr.flipX)
-                bulletSpawnPosition = laser.position;
-                bulletSpawnRotation = bulletSpawnPoint.rotation;
+                bulletSpawnPosition = bulletSpawnPoint.position;
+            bulletSpawnRotation = bulletSpawnPoint.rotation;
+
+            // Spawn bullet at the calculated position and rotation
+            GameObject bullet = Instantiate(laserprefab, bulletSpawnPosition, bulletSpawnRotation);
 
 
-            // Calculate the shoot directions
-            Vector3 shootDirection1 = Quaternion.Euler(0, 0, 20) * transform.right;
-            ls2.SetActive(true);
+            Vector3 shootDirection = transform.right;
 
+            if (sr.flipX)
+                shootDirection = -transform.right;
 
+            if (!sr.flipX)
+                shootDirection = transform.right;
 
+            bullet.GetComponent<bulletcode>().userID = armID;
+            // Add force to the bullet in the shoot direction
+            bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
 
             canSpawnBullet = false;
-            StartCoroutine(lasershot(5f));
+            StartCoroutine(StartBulletSpawnCooldown(1f));
         }
     }
 }
