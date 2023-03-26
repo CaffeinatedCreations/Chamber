@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Ricochet
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillCategory: 
-  desc: 
-  skillName: 
+  skillCategory: Bullet
+  desc: Lets your bullets bounce one time before being destroyed.
+  skillName: Ricochet

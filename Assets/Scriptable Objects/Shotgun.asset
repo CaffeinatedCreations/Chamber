@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillCategory: 
-  desc: 
-  skillName: 
+  skillCategory: Weapon
+  desc: Makes your weapon shoot 3 bullets in a wide spread
+  skillName: Shotgun

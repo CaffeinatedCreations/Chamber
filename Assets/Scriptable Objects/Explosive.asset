@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Explosive
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillCategory: 
-  desc: 
-  skillName: 
+  skillCategory: Effect
+  desc: Makes your bullets explode on impact
+  skillName: Explosive

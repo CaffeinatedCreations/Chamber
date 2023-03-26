@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Block
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillCategory: 
-  desc: 
-  skillName: 
+  skillCategory: Defense
+  desc: Allows you to briefly block your opponent's bullets.
+  skillName: Block
