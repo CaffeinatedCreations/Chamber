@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject blackBackground, SkillSelectScreen, GunHolder, BulletHolder, DefenseHolder;
+
+    [SerializeField]
+    private GameObject gunButton, bulletButton, defenseButton;
 
 
     // Start is called before the first frame update
@@ -39,16 +43,22 @@ public class UIManager : MonoBehaviour
     public void turnOnGun()
     {
         GunHolder.SetActive(true);
+        var eventSystem = EventSystem.current;
+        eventSystem.SetSelectedGameObject(gunButton, new BaseEventData(eventSystem));
     }
 
     public void turnOnBullet()
     {
         BulletHolder.SetActive(true);
+        var eventSystem = EventSystem.current;
+        eventSystem.SetSelectedGameObject(bulletButton, new BaseEventData(eventSystem));
     }
 
     public void turnOnDefense()
     {
         DefenseHolder.SetActive(true);
+        var eventSystem = EventSystem.current;
+        eventSystem.SetSelectedGameObject(defenseButton, new BaseEventData(eventSystem));
     }
 
     public void turnOffAll()

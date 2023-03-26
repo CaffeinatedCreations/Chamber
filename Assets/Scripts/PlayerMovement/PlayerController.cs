@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Oops you died");
         PlayerSpawnManager.instance.setControllable(false);
-        rb.velocity = Vector2.zero;
         SkillSystem.instance.SetID(playerID);
         
 
@@ -92,6 +91,7 @@ public class PlayerController : MonoBehaviour
 
         this.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
         PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
+        this.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
     }
 

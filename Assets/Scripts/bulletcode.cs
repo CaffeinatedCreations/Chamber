@@ -38,7 +38,7 @@ public class bulletcode : MonoBehaviour
 
     public void setID(int desID)
     {
-        Debug.Log("Set ID To: " + desID);
+        //Debug.Log("Set ID To: " + desID);
         userID = desID;
     }
 

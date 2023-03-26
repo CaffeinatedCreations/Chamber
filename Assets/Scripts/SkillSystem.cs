@@ -25,55 +25,73 @@ public class SkillSystem : MonoBehaviour
     public void giveShotgun()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().weapon = "Shotgun";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        //thisObject.SetActive(false);
     }
 
     public void giveUzi()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().weapon = "Uzi";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        //thisObject.SetActive(false);
     }
 
     public void giveSword()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().weapon = "Sword";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        //thisObject.SetActive(false);
     }
 
     public void giveHoming()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().bulletEffect = "Homing";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        //thisObject.SetActive(false);
     }
 
     public void giveExplode()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().bulletEffect = "Explode";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        //thisObject.SetActive(false);
     }
 
     public void giveRicochet()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().bulletEffect = "Ricochet";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        //thisObject.SetActive(false);
     }
 
     public void giveBlock()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().defensive = "Block";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        //thisObject.SetActive(false);
     }
 
     public void giveDeflect()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().defensive = "Deflect";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        // thisObject.SetActive(false);
     }
 
     public void giveJam()
     {
         PlayerSpawnManager.instance.players[playerID].GetComponent<PlayerController>().defensive = "Jam";
-        thisObject.SetActive(false);
+        PlayerSpawnManager.instance.setControllable(true);
+        UIManager.instance.turnOffAll();
+        //thisObject.SetActive(false);
     }
 
 }
