@@ -24,8 +24,8 @@ public class ArmMovement : MonoBehaviour
     public Transform bulletSpawnPoint;
     public Transform bulletSpawnPoint2;
     public Transform gunTransform;
-    private AudioSource shootingAudio;
 
+    private AudioSource shootingAudio;
     private int bulletstate = 1;
     private int weaponstate = 1;
     private int defensestate = 1;
@@ -172,10 +172,10 @@ public class ArmMovement : MonoBehaviour
     {
         if (num == 1)
         {
+            
             shootingAudio.PlayOneShot(shootingAudio.clip);
             //sr.sprite = shoot;
             Debug.Log("Shoot");
-
             // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
             Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
             Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
