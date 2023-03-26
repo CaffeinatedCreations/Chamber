@@ -604,6 +604,12 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Nothing",
+            "id": "af035733-b72d-4e26-961d-20ce099d803e",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": [

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    public int currentPlayerIndex = 0;
 
     [SerializeField]
     private GameObject blackBackground, SkillSelectScreen;
@@ -21,6 +22,9 @@ public class UIManager : MonoBehaviour
     {
         
     }
+
+
+
 
     public void turnOnBackground()
     {
