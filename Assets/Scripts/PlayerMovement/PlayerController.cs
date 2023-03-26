@@ -65,27 +65,9 @@ public class PlayerController : MonoBehaviour
         PlayerSpawnManager.instance.setControllable(false);
         SkillSystem.instance.SetID(playerID);
         
-
-        if (bulletEffect == "" && weapon == "" && defensive == "")
-        {
-            UIManager.instance.turnOnBackground();
-            UIManager.instance.turnOnSkillSelector();
-            UIManager.instance.turnOnBullet();
-        }
-
-        if (bulletEffect != "" && weapon == "" && defensive == "")
-        {
-            UIManager.instance.turnOnBackground();
-            UIManager.instance.turnOnSkillSelector();
-            UIManager.instance.turnOnDefense();
-        }
-
-        if (bulletEffect != "" && weapon == "" && defensive != "")
-        {
-            UIManager.instance.turnOnBackground();
-            UIManager.instance.turnOnSkillSelector();
-            UIManager.instance.turnOnGun();
-        }
+        UIManager.instance.turnOnBackground();
+        UIManager.instance.turnOnSkillSelector();
+        UIManager.instance.turnOnGun();
 
 
 
