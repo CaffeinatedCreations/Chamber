@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91c22065a8fe2984489fbe60f2b77be4, type: 3}
-  m_Name: AK47
+  m_Name: Uzi
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 4e3ef7d105173f14e8ec35b8c26f781c, type: 3}
   skillCategory: Weapon
-  desc: Gives your weapon burst fire
-  skillName: AK47
+  desc: Allows you to shoot fun a much faster cooldown.
+  skillName: Uzi

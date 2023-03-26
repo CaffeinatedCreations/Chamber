@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
     public int currentPlayerIndex = 0;
 
     [SerializeField]
-    private GameObject blackBackground, SkillSelectScreen;
+    private GameObject blackBackground, SkillSelectScreen, GunHolder, BulletHolder, DefenseHolder;
 
 
     // Start is called before the first frame update
@@ -34,5 +34,29 @@ public class UIManager : MonoBehaviour
     public void turnOnSkillSelector()
     {
         SkillSelectScreen.SetActive(true);
+    }
+
+    public void turnOnGun()
+    {
+        GunHolder.SetActive(true);
+    }
+
+    public void turnOnBullet()
+    {
+        BulletHolder.SetActive(true);
+    }
+
+    public void turnOnDefense()
+    {
+        DefenseHolder.SetActive(true);
+    }
+
+    public void turnOffAll()
+    {
+        blackBackground.SetActive(false);
+        SkillSelectScreen.SetActive(false);
+        GunHolder.SetActive(false);
+        BulletHolder.SetActive(false);
+        DefenseHolder.SetActive(false);
     }
 }

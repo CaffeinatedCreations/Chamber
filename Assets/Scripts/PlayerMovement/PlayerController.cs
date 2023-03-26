@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
 
     public int playerID;
     public Vector2 spawnLocation;
+    public string bulletEffect, weapon, defensive = "";
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,10 +62,37 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Oops you died");
         PlayerSpawnManager.instance.setControllable(false);
+        SkillSystem.instance.playerID = playerID;
         rb.velocity = Vector2.zero;
+
+
         UIManager.instance.turnOnBackground();
         UIManager.instance.turnOnSkillSelector();
-        this.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+
+        if (bulletEffect == "" && weapon == "" && defensive == "")
+        {
+            UIManager.instance.turnOnBackground();
+            UIManager.instance.turnOnSkillSelector();
+            UIManager.instance.turnOnBullet();
+        }
+
+        if (bulletEffect != "" && weapon == "" && defensive == "")
+        {
+            UIManager.instance.turnOnBackground();
+            UIManager.instance.turnOnSkillSelector();
+            UIManager.instance.turnOnDefense();
+        }
+
+        if (bulletEffect != "" && weapon == "" && defensive != "")
+        {
+            UIManager.instance.turnOnBackground();
+            UIManager.instance.turnOnSkillSelector();
+            UIManager.instance.turnOnGun();
+        }
+
+
+
+        //this.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
         PlayerSpawnManager.instance.RespawnPlayer(this.GetComponent<PlayerInput>());
 
     }

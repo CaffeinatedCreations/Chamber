@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 64790c54482d06a4f830cdcd45c710e4, type: 3}
-  m_Color: {r: 0.14643356, g: 0.7264151, b: 0.119927004, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -109,4 +109,10 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 0}
   bulletSpawnPoint2: {fileID: 0}
   gunTransform: {fileID: 0}
+  weaponstate: 3
   player: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  bulletForce: 0
+  armID: -1
+  laserprefab: {fileID: 0}
+  soundManager: {fileID: 0}

@@ -39,6 +39,7 @@ public class ArmMovement : MonoBehaviour
     public float bulletForce;
     public int armID = -1;
     private int offset;
+    public string weapon;
 
     public GameObject laserprefab;
 
@@ -47,6 +48,7 @@ public class ArmMovement : MonoBehaviour
     public void Start()
     {
         offset = 2;
+        
         sr = GetComponent<SpriteRenderer>();
         sr.color = tar.color;
         shootingAudio = GetComponent<AudioSource>();
@@ -135,44 +137,8 @@ public class ArmMovement : MonoBehaviour
             //Debug.Log("Shoot");
             if (context.performed && canSpawnBullet)
             {
-                /*
-                changeweapon(2);
-                //sr.sprite = shoot;
-                Debug.Log("Shoot");
-                shootingAudio.PlayOneShot(shootingAudio.clip);
-
-                // Calculate the bullet spawn position based on the bulletSpawnPoint's position and orientation
-                Vector3 bulletSpawnPosition = bulletSpawnPoint.position;
-                Quaternion bulletSpawnRotation = bulletSpawnPoint.rotation;
-                if (sr.flipX)
-                    bulletSpawnPosition = bulletSpawnPoint2.position;
-                bulletSpawnRotation = bulletSpawnPoint.rotation;
-
-                if (!sr.flipX)
-                    bulletSpawnPosition = bulletSpawnPoint.position;
-                bulletSpawnRotation = bulletSpawnPoint.rotation;
-
-                // Spawn bullet at the calculated position and rotation
-                GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
-
-
-                Vector3 shootDirection = transform.right;
-
-                if (sr.flipX)
-                    shootDirection = -transform.right;
-
-                //if (!sr.flipX)
-                //shootDirection = transform.right;
-
-                bullet.GetComponent<bulletcode>().userID = armID;
-                // Add force to the bullet in the shoot direction
-                bullet.GetComponent<Rigidbody2D>().AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
-                
-
-                canSpawnBullet = false;
-                StartCoroutine(StartBulletSpawnCooldown(bulletSpawnCooldown));
-                */
-                changeweapon(3);
+                weapon = GetComponentInParent<PlayerController>().weapon;
+                changeweapon(weapon);
             }
         }catch(Exception e)   
         {
@@ -222,9 +188,9 @@ public class ArmMovement : MonoBehaviour
         }
     }
 
-    public void changeweapon(int num)
+    public void changeweapon(string weapon)
     {
-        if (num == 1)
+        if (weapon == "")
         {
             
             shootingAudio.PlayOneShot(shootingAudio.clip);
@@ -244,7 +210,6 @@ public class ArmMovement : MonoBehaviour
             // Spawn bullet at the calculated position and rotation
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
 
-            Debug.Log("Calling Set ID");
             bullet.GetComponent<bulletcode>().setID(armID);
 
 
@@ -264,7 +229,7 @@ public class ArmMovement : MonoBehaviour
             StartCoroutine(StartBulletSpawnCooldown(1f));
 
         }
-        else if (num == 2) //uzi
+        else if (weapon == "Uzi") //uzi
         {
             shootingAudio.PlayOneShot(shootingAudio.clip);
             //sr.sprite = shoot;
@@ -283,8 +248,8 @@ public class ArmMovement : MonoBehaviour
 
             // Spawn bullet at the calculated position and rotation
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
-           
 
+            bullet.GetComponent<bulletcode>().setID(armID);
 
             Vector3 shootDirection = transform.right;
 
@@ -301,7 +266,7 @@ public class ArmMovement : MonoBehaviour
             canSpawnBullet = false;
             StartCoroutine(nowait(0f));
         }
-        else if (num == 3) //shotgun
+        else if (weapon == "Shotgun") //shotgun
         {
             shootingAudio.PlayOneShot(shootingAudio.clip);
             Debug.Log("Shoot");
@@ -321,6 +286,10 @@ public class ArmMovement : MonoBehaviour
             GameObject bullet1 = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
             GameObject bullet2 = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
             GameObject bullet3 = Instantiate(bulletPrefab, bulletSpawnPosition, bulletSpawnRotation);
+
+            bullet1.GetComponent<bulletcode>().setID(armID);
+            bullet2.GetComponent<bulletcode>().setID(armID);
+            bullet3.GetComponent<bulletcode>().setID(armID);
 
             // Calculate the shoot directions
             Vector3 shootDirection1 = Quaternion.Euler(0, 0, 20) * transform.right;
@@ -342,7 +311,7 @@ public class ArmMovement : MonoBehaviour
             canSpawnBullet = false;
             StartCoroutine(nowait(1f));
         }
-        else if(num == 4)
+        else if(weapon == "Sword")
         {
             shootingAudio.PlayOneShot(shootingAudio.clip);
             //sr.sprite = shoot;
@@ -360,7 +329,6 @@ public class ArmMovement : MonoBehaviour
 
             // Spawn bullet at the calculated position and rotation
             GameObject bullet = Instantiate(laserprefab, bulletSpawnPosition, bulletSpawnRotation);
-
 
             Vector3 shootDirection = transform.right;
 

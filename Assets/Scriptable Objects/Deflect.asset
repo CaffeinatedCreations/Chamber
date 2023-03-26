@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c22065a8fe2984489fbe60f2b77be4, type: 3}
   m_Name: Deflect
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d677920952c42444f83f6462480555ec, type: 3}
   skillCategory: Defense
   desc: Let's your send your opponents bullets right back at them if you time it
     right.

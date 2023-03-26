@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c22065a8fe2984489fbe60f2b77be4, type: 3}
   m_Name: Jam
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 35cc93bd37e134346ad0f6fa3e86e033, type: 3}
   skillCategory: Defense
   desc: Allows you to jam your opponents weapon, stopping them from shooting.
   skillName: Jam

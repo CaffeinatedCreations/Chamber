@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c22065a8fe2984489fbe60f2b77be4, type: 3}
   m_Name: Explosive
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: fba4f734192143243a9aadd6c998978c, type: 3}
   skillCategory: Effect
   desc: Makes your bullets explode on impact
   skillName: Explosive
